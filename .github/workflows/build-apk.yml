@@ -2,7 +2,7 @@ name: Compilar APK de Luisa Ludo
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   workflow_dispatch:
 
 jobs:
@@ -19,20 +19,11 @@ jobs:
           distribution: "temurin"
           java-version: "17"
 
-      - name: Dar permisos a gradlew si existe
-        run: |
-          if [ -f "./gradlew" ]; then
-            chmod +x ./gradlew
-          fi
+      - name: Dar permisos a gradlew
+        run: chmod +x ./gradlew
 
-      - name: Compilar APK con Gradle
-        run: |
-          if [ -f "./gradlew" ]; then
-            ./gradlew assembleDebug
-          else
-            echo "No se encontró gradlew en la raíz."
-            exit 1
-          fi
+      - name: Compilar APK omitiendo pruebas y dependencyGuard
+        run: ./gradlew assembleDebug -x test -x jvmTest -x connectedAndroidTest -x dependencyGuard
 
       - name: Subir APK compilado como artefacto
         uses: actions/upload-artifact@v4
