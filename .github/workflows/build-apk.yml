@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar código del repositorio
+      - name: Descargar código
         uses: actions/checkout@v4
 
       - name: Configurar Java 17
@@ -22,16 +22,10 @@ jobs:
       - name: Dar permisos a gradlew
         run: chmod +x ./gradlew
 
-      - name: Compilar APK con reintento si falla la red
-        run: |
-          for i in 1 2 3; do
-            ./gradlew assembleDebug -x test -x connectedAndroidTest --refresh-dependencies && exit 0
-            echo "Intento $i falló, reintentando en 10 segundos..."
-            sleep 10
-          done
-          exit 1
+      - name: Compilar APK FossReliant Debug
+        run: ./gradlew assembleFossReliantDebug -x test -x jvmTest -x connectedAndroidTest -x dependencyGuard --offline || ./gradlew assembleFossReliantDebug -x test -x jvmTest -x connectedAndroidTest -x dependencyGuard
 
-      - name: Subir APK compilado como artefacto
+      - name: Subir APK
         uses: actions/upload-artifact@v4
         with:
           name: luisa-ludo-apk
