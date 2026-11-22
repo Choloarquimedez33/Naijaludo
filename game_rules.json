@@ -1,0 +1,31 @@
+{
+  "gameName": "Luisa Ludo",
+  "board": {
+    "perimeterTiles": 48,
+    "startTile": 0,
+    "homeStretch": ["H1", "H2", "H3", "H4", "H5", "META"],
+    "yellowTiles": [0, 12, 24, 36],
+    "redSafeTiles": [3, 9, 15, 21, 27, 33, 39, 45]
+  },
+  "rules": {
+    "entryDiceValue": 1,
+    "olimpica": {
+      "enabled": true,
+      "consecutiveOnes": 3,
+      "onlyBeforeAnyEntry": true,
+      "effect": "PENDING_USER_DEFINITION"
+    },
+    "redTiles": {
+      "allowCapture": false,
+      "allowOpponentShare": false,
+      "blockIfOccupied": true
+    },
+    "stacking": {
+      "maxSamePlayerPiecesOnEntryTile": 2,
+      "blockOpponentsWhenStacked": true,
+      "requiresOtherActivePieceToHoldBlock": true,
+      "forceOpenOnDiceValue": 3,
+      "forceOpenCondition": "PENDING_USER_DEFINITION"
+    }
+  }
+}
